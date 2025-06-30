@@ -8,10 +8,14 @@ const { TIKTOK_CLIENT_ID, TIKTOK_CLIENT_SECRET, TIKTOK_REDIRECT_URI } = process.
 
 // Korak 1: Redirect ka TikToku (OAuth login)
 router.get("/login", (req, res) => {
+  const { userId } = req.query; // Uzimamo userId iz query-ja
   const scope = "user.info.basic";
-  const redirectUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${TIKTOK_CLIENT_ID}&scope=${scope}&response_type=code&redirect_uri=${encodeURIComponent(TIKTOK_REDIRECT_URI)}`;
+
+  const redirectUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${TIKTOK_CLIENT_ID}&scope=${scope}&response_type=code&redirect_uri=${encodeURIComponent(TIKTOK_REDIRECT_URI)}&state=${userId}`;
+
   res.redirect(redirectUrl);
 });
+
 
 // Korak 2: Callback nakon logina (TikTok šalje code)
 router.get("/callback", async (req, res) => {
@@ -37,7 +41,22 @@ router.get("/callback", async (req, res) => {
     const user = userRes.data.data.user;
 
     // Ovde ćeš ubuduće čuvati korisnika u bazi (ako postoji, ažurirati)
-    console.log("TikTok korisnik:", user);
+    const User = require("../models/User");
+
+    // Ovde dodaj ID korisnika iz tvoje JWT sesije (ili koristi sesiju)
+    const loggedInUserId = req.query.state || null; // naknadno možeš ovo rešiti preko tokena
+
+    if (loggedInUserId) {
+      await User.findByIdAndUpdate(loggedInUserId, {
+        tiktok: {
+          id: user.open_id,
+          username: user.username,
+          displayName: user.display_name,
+          avatar: user.avatar_url,
+        },
+      });
+    }
+
 
     res.send(`Zdravo ${user.display_name || user.username}, TikTok je povezan!`);
   } catch (err) {

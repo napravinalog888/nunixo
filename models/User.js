@@ -17,8 +17,40 @@ const UserSchema = new mongoose.Schema(
       enum: ["free", "starter", "pro", "elite", "enterprise"],
       default: "free",
     },
+    tiktok: {
+  id: { type: String },
+  username: { type: String },
+  displayName: { type: String },
+  avatar: { type: String },
+}
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", UserSchema);
+
+
+
+
+const userSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  plan: { type: String, enum: ["free", "starter", "pro", "elite", "premium"], default: "free" },
+  
+  tiktok: {
+    id: String,
+    username: String,
+    displayName: String,
+    avatar: String,
+  },
+  instagram: {
+    id: String,
+    username: String,
+  },
+  youtube: {
+    id: String,
+    channelId: String,
+    title: String,
+  },
+}, { timestamps: true });
+
+module.exports = mongoose.model("User", userSchema);
