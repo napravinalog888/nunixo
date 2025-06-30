@@ -26,6 +26,10 @@ app.use("/api/tiktok", tiktokRoutes);
 const aiRoutes = require("./routes/aiRoutes");
 app.use("/api/ai", aiRoutes);
 
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/user", userRoutes);
+
+
 // Test ruta (za proveru da server radi)
 app.get("/", (req, res) => {
   res.send("Server radi!");
