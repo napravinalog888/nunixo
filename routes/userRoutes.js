@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/authMiddleware");
+const { auth } = require("../middleware/authMiddleware");
 const User = require("../models/User");
+
 
 // Dohvati info o korisniku
 router.get("/me", auth, async (req, res) => {
