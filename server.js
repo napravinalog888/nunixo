@@ -20,6 +20,9 @@ const path = require('path');
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 
+const instagramRoutes = require("./routes/instagramRoutes");
+app.use("/api/instagram", instagramRoutes);
+
 const tiktokRoutes = require("./routes/tiktokRoutes");
 app.use("/api/tiktok", tiktokRoutes);
 
