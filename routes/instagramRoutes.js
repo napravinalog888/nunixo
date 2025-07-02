@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const auth = require("../authMiddleware/auth");
+const auth = require("../middleware/authMiddleware");
 require("dotenv").config();
 
 const CLIENT_ID = process.env.INSTAGRAM_CLIENT_ID;
