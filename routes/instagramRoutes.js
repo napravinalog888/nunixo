@@ -25,7 +25,6 @@ router.get("/callback", async (req, res) => {
 
   console.log(`Primljen IG code: ${code} za user: ${state}`);
 
-  // Dummy upis
   await User.findByIdAndUpdate(state, {
     "instagram.username": "dummy_ig_user",
     "instagram.id": "dummy_ig_id",
@@ -35,3 +34,4 @@ router.get("/callback", async (req, res) => {
 });
 
 module.exports = router;
+
