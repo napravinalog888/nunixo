@@ -26,6 +26,9 @@ app.use("/api/instagram", instagramRoutes);
 const tiktokRoutes = require("./routes/tiktokRoutes");
 app.use("/api/tiktok", tiktokRoutes);
 
+const youtubeRoutes = require("./routes/youtubeRoutes");
+app.use("/api/youtube", youtubeRoutes);
+
 const aiRoutes = require("./routes/aiRoutes");
 app.use("/api/ai", aiRoutes);
 
