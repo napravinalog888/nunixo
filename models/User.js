@@ -22,7 +22,12 @@ const UserSchema = new mongoose.Schema(
   username: { type: String },
   displayName: { type: String },
   avatar: { type: String },
-}
+},
+role: {
+    type: String,
+    enum: ["user", "premium", "admin"],
+    default: "user",
+  }
   },
   { timestamps: true }
 );

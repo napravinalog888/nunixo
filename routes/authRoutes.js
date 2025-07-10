@@ -14,7 +14,7 @@ router.post("/register", async (req, res) => {
     if (user) return res.status(400).json({ message: "Email već postoji" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    user = new User({ email, password: hashedPassword, plan: "free" });
+    user = new User({ email, password: hashedPassword, plan: "free", role: "user" });
     await user.save();
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
