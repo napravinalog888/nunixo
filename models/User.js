@@ -17,6 +17,8 @@ const UserSchema = new mongoose.Schema(
       enum: ["free", "starter", "pro", "elite", "enterprise"],
       default: "free",
     },
+
+
     tiktok: {
   id: { type: String },
   username: { type: String },
